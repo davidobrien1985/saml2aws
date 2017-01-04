@@ -17,17 +17,12 @@ install:
     write-output $env:PATH
     go version
     go env
-
     c:\gopath\bin\glide install 2> $null
-    go build -o bin/saml2aws.exe -ldflags "-X main.Version=1.3.2" ./cmd/saml2aws
-
-    mkdir ./choco/src
-    copy-item bin/saml2aws.exe ./choco/src/saml2aws.exe
-    cd choco
-    choco pack saml2aws.nuspec
 
 build_script:
-- cmd: 7z a saml2aws.zip %APPVEYOR_BUILD_FOLDER%\bin\saml2aws.exe
+- cmd: >-
+    go build -o bin/saml2aws.exe -ldflags "-X main.Version=1.3.2" ./cmd/saml2aws
+    7z a saml2aws.zip %APPVEYOR_BUILD_FOLDER%\bin\saml2aws.exe
 artifacts:
 - path: saml2aws.zip
 - path: choco/saml2aws.nupkg
