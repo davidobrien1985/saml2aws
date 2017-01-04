@@ -14,9 +14,8 @@ install:
     $env:Path += ";`"$env:GOPATH\bin`";c:\go\bin;"
     go get github.com/Masterminds/glide
 
-    write-output $env:PATH
     go version
-    go env
+
     c:\gopath\bin\glide install 2> $null
     go build -o bin/saml2aws.exe -ldflags "-X main.Version=1.3.2" ./cmd/saml2aws
 
