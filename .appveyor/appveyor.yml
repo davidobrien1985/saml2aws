@@ -7,6 +7,8 @@ image: WMF 5
 clone_folder: c:\gopath\src\github.com\versent\saml2aws
 environment:
   GOPATH: c:\gopath
+  CHOCOLATEY_APIKEY:
+    secure: mQ9vPmmwP1JqAdf45GK5Npl3iCfeRZPda08C2vQWiMxMfFj5WgNqCYEMZmDPxQRa
 install:
 - ps: >-
     write-output $env:GOPATH
@@ -29,7 +31,6 @@ install:
 
     go build -o bin/saml2aws.exe -ldflags "-X main.Version=1.3.2" ./cmd/saml2aws
 
-
     mkdir ./choco/src
 
     copy-item ./bin/saml2aws.exe ./choco/src/saml2aws.exe
@@ -39,6 +40,9 @@ install:
     choco pack saml2aws.nuspec
     
     cd ..
+
+    choco apiKey -k $env:CHOCOLATEY_APIKEY -source https://chocolatey.org/
+    choco push choco/saml2aws.1.3.2.nupkg
 build_script:
 - cmd: 7z a saml2aws.zip %APPVEYOR_BUILD_FOLDER%\bin\saml2aws.exe
 artifacts:
@@ -50,4 +54,4 @@ deploy:
   auth_token:
     secure: kxO8LOQfcXH15OdilgteFKRn4Y7vUQND84WaR2fgghgiwTTHPLgKV1j+6o/8Ggjx
   artifact: saml2aws.zip, choco/saml2aws.1.3.2.nupkg
-  draft: true
+  draft: false
