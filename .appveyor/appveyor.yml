@@ -42,7 +42,8 @@ install:
     cd ..
 
     choco apiKey -k $env:CHOCOLATEY_APIKEY -source https://chocolatey.org/
-    choco push choco/saml2aws.1.3.2.nupkg
+
+    choco push ./choco/saml2aws.1.3.2.nupkg
 build_script:
 - cmd: 7z a saml2aws.zip %APPVEYOR_BUILD_FOLDER%\bin\saml2aws.exe
 artifacts:
