@@ -35,8 +35,8 @@ test_script:
 artifacts:
 - path: $(appName).zip
 - path: $(appName).zip.sha256
-- path: choco/$(appName).${env:APPVEYOR_REPO_TAG_NAME}.nupkg
-- path: choco/$(appName).${env:APPVEYOR_REPO_TAG_NAME}.nupkg.sha256
+- path: choco/$(appName).$(APPVEYOR_REPO_TAG_NAME).nupkg
+- path: choco/$(appName).$(APPVEYOR_REPO_TAG_NAME).nupkg.sha256
 #deploy:
 #- provider: GitHub
 #  release: saml2aws-$(appveyor_build_version)
